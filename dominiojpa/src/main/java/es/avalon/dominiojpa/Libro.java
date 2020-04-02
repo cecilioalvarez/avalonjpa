@@ -1,9 +1,14 @@
 package es.avalon.dominiojpa;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-
+@Entity
+@Table(name="Libros")
 public class Libro {
 
+	@Id
 	private String isbn;
 	private String titulo;
 	private String autor;
@@ -62,6 +67,10 @@ public class Libro {
 	public Libro(String isbn) {
 		super();
 		this.isbn = isbn;
+	}
+
+	public Libro() {
+		super();
 	}
 
 	@Override
