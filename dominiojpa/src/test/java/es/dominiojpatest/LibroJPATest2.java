@@ -1,12 +1,16 @@
 package es.dominiojpatest;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
@@ -41,7 +45,7 @@ public class LibroJPATest2 {
 	}
 	
 	@Test
-	public void testInicialLibros () {
+	public void testListaTodosLibros () {
 		
 		//consutla JPA querty Langguage
 		TypedQuery<Libro> consulta= em.createQuery("select l from Libro l", Libro.class);
@@ -59,7 +63,8 @@ public class LibroJPATest2 {
 		//gerno en memorioa el libro ab como tenemos hashcode e equals
 		//instancio libro y compruebo que en la lista viene
 		Libro libro= new Libro ("AB");
-		assertTrue(lista.contains(libro));
+		//assertTrue(lista.contains(libro));
+		assertThat(lista,hasItems(libro));
 		
 		
 
@@ -80,16 +85,41 @@ public class LibroJPATest2 {
 		consulta.setParameter("autor","cecilio");
 		List<Libro> lista=consulta.getResultList();
 		//assertNotNull(lista);
-		assertTrue(lista.size()>=2);
+		//assertTrue(lista.size()>=2);
+		
+		assertThat(lista.size(),greaterThanOrEqualTo(2));
 }
 	public void testBuscarLibrosCategoria() {
 	
 		TypedQuery<Libro> consulta =em.createQuery("select l from Libro l where l.categoria=:categoria",Libro.class);
 		consulta.setParameter("categoria","web");
 		List<Libro> lista=consulta.getResultList();
-		assertEquals(2,lista.size());
+		//assertEquals(2,lista.size());
+		assertThat(lista.size(),greaterThanOrEqualTo(2));
 		
 }
+	public void testBorrarLibrosISBN () {
+		
+		//busca entidad
+		Libro libro=em.find(Libro.class, "1AB");
+		//asegura queexiste
+		assertNotNull(libro);
+		//comienza transaccion (accion contra bd)
+		EntityTransaction t= em.getTransaction();
+		//ejecuta transaccoion
+		t.begin();
+		//lo elimina
+		em.remove(libro);
+		//intenta incontrarlo
+		Libro libro2=em.find(Libro.class, "1AB");
+		//asegura que no esta
+		assertNull(libro2);
+		//echa para atras dejando todo como estaba antes
+		t.rollback();
+}
+	
+	
+	
 	@After
 	public void Close() {
 		//emf=null;
