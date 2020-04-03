@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
@@ -93,6 +94,28 @@ public class LibroJPATest2 {
 		assertEquals("cecilio",libro.getAutor());		
 		assertEquals(10,libro.getPrecio());		
 		assertEquals("java",libro.getCategoria());		
+	}
+	
+	@Test
+	public void test_Borrar_Libro_Por_Isbn_1AB() {
+		
+		//Busca la entidad
+		Libro libro=em.find(Libro.class,"1AB");
+		//hace un assert y comprueba que existe
+		assertNotNull(libro);
+		//Esta genera una transaccion
+		EntityTransaction t=em.getTransaction();
+		//Ejecuta una transaccion
+		t.begin();
+		
+		//Elimina el libro
+		em.remove(libro);
+		//Intenta encontrar el libro
+		Libro libro2=em.find(Libro.class, "1AB");
+		//Comprueba que ya no existe
+		assertNull(libro2);
+		//echa la transaccion para atras de tal manera que los datos quedaen como estaban en la base de datos
+		t.rollback();
 	}
 	
 	@After
