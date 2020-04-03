@@ -1,26 +1,23 @@
-package com.avalon.main;
+package es.avalon.main;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
+
 import javax.persistence.Persistence;
 
-import com.avalon.dominiojpa.Libro;
+import es.avalon.dominiojpa.Libro;
 
-public class Principal {
+public class Principal2 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 		EntityManagerFactory factoria=Persistence.createEntityManagerFactory("UnidadBiblioteca");
 		EntityManager em=factoria.createEntityManager();
-		Libro libro=new Libro("120","java","yo",20,"programacion");
+		Libro libro=em.find(Libro.class, "120");
 	
-		EntityTransaction t=em.getTransaction();
-		t.begin();
-		em.persist(libro);
-		t.commit();
-	
+		System.out.println(libro.getIsbn());
+		System.out.println(libro.getAutor());
+		System.out.println(libro.getTitulo());
+
 	}
 
 }

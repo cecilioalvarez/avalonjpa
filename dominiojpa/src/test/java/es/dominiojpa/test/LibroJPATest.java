@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
 
 import org.junit.Test;
 
-import com.avalon.dominiojpa.Libro;
+import es.avalon.dominiojpa.Libro;
 
 public class LibroJPATest {
 

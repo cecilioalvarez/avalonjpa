@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.avalon.dominiojpa.Libro;
+import es.avalon.dominiojpa.Libro;
 
 public class LibrosTest {
 

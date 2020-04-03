@@ -1,11 +1,11 @@
-package com.avalon.main;
+package es.avalon.main;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import com.avalon.dominiojpa.Libro;
+import es.avalon.dominiojpa.Libro;
 
 public class Principio4 {
 

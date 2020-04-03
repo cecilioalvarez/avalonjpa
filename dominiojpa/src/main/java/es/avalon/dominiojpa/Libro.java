@@ -1,4 +1,4 @@
-package com.avalon.dominiojpa;
+package es.avalon.dominiojpa;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
