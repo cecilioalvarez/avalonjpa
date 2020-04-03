@@ -36,7 +36,7 @@ public class LibroJPATest2 {
 	}
 	
 	@Test
-	public void testInicialLibros() {
+	public void test_lista_todos_los_libros() {
 
 		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l",Libro.class);
 		
@@ -48,7 +48,7 @@ public class LibroJPATest2 {
 	}
 
 	@Test
-	public void test_Existe_Libro_Titulo_Java() {
+	public void test_Existe_Libro_ISBN_1AB() {
 
 		//Consulta JPA Query Language
 		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l",Libro.class);
@@ -58,34 +58,34 @@ public class LibroJPATest2 {
 		//Genero en memoria el libro 1AB, como tenemos sobrecargado el equals y el hashcode
 		//instancia el libro y comprueba que en la lista viene con el metodo contains
 		Libro libro=new Libro("1AB");
-		assertTrue(lista.contains(libro));		
+		assertThat(lista,hasItems(libro));		
 
 	}
 	
 	@Test
-	public void test_Buscar_Libro_por_autor_cecilio() {
+	public void test_Buscar_Libro_Por_Autor_Cecilio() {
 
 		//Consulta JPA query language
 		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l where l.autor=:autor",Libro.class);
 		consulta.setParameter("autor", "cecilio");
 		
 		List<Libro> lista=consulta.getResultList();
-		assertTrue(lista.size()>=2);
+		assertThat(lista.size(),greaterThanOrEqualTo(2));
 	}
 	
 	@Test
-	public void test_Buscar_Libro_por_categoria_web() {
+	public void test_Buscar_Libro_Por_Categoria_web() {
 
 		//Consulta JPA query language
 		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l where l.categoria=:categoria",Libro.class);
 		consulta.setParameter("categoria", "web");
 		
 		List<Libro> lista=consulta.getResultList();
-		assertEquals(2,lista.size());
+		assertThat(lista.size(),greaterThanOrEqualTo(2));
 	}
 	
 	@Test
-	public void test_Buscar_Libro_por_Isbn() {
+	public void test_Buscar_Libro_Por_Isbn_1AB() {
 		
 		Libro libro=em.find(Libro.class,"1AB");
 		assertEquals("1AB",libro.getIsbn());		
