@@ -68,6 +68,11 @@ public class LibroJPATest2 {
 		em= emf.createEntityManager();
 		Libro libro= em.find(Libro.class, "1AB");
 		
+		assertEquals("1AB",libro.getIsbn());
+		assertEquals("Java",libro.getTitulo());
+		assertEquals("cecilio",libro.getAutor());
+		assertEquals(10,libro.getPrecio());
+		assertEquals("java",libro.getCategoria());
 		
 		
 	}
