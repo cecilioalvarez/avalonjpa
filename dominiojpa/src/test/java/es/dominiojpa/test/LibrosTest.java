@@ -18,7 +18,7 @@ public class LibrosTest {
 	@Test
 	public void testElLibroNoesNulo() {
 
-		Libro libro=new Libro("10","java","pedro",20,"programacion");
+		Libro libro=new Libro("10","java","pedro",20);
 		
 		assertNotNull(libro);
 	}
@@ -26,7 +26,7 @@ public class LibrosTest {
 	@Test
 	public void testElLibroTieneInformacionCorrecta() {
 
-		Libro libro=new Libro("10","java","pedro",20,"programacion");
+		Libro libro=new Libro("10","java","pedro",20);
 		
 		assertEquals("10", libro.getIsbn());
 		assertEquals("java", libro.getTitulo());

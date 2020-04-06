@@ -21,6 +21,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import es.avalon.dominiojpa.Categoria;
 import es.avalon.dominiojpa.Libro;
 
 public class LibroJPATest2 {
@@ -90,25 +91,30 @@ public class LibroJPATest2 {
 	}
 	
 	@Test
-	public void test_Buscar_Libro_Por_Categoria_web() {
+	public void test_Buscar_Libro_Por_Categoria() {
 
-		//Consulta JPA query language
-		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l where l.categoria=:categoria",Libro.class);
-		consulta.setParameter("categoria", "web");
+		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l where l.categoria.nombre=:nombre",Libro.class);
+		consulta.setParameter("nombre", "java");
 		
 		List<Libro> lista=consulta.getResultList();
 		assertThat(lista.size(),greaterThanOrEqualTo(2));
+		assertThat(lista,hasItems(new Libro("1AB"),new Libro("2AC")));
 	}
 	
 	@Test
-	public void test_Buscar_Libro_Por_Isbn_1AB() {
+	public void test_Buscar_Libro_Por_Isbn_1AB_con_categoria_java() {
 		
 		Libro libro=em.find(Libro.class,"1AB");
 		assertEquals("1AB",libro.getIsbn());		
 		assertEquals("Java",libro.getTitulo());		
 		assertEquals("cecilio",libro.getAutor());		
 		assertEquals(10,libro.getPrecio());		
-		assertEquals("java",libro.getCategoria());		
+
+
+		Categoria c=libro.getCategoria();
+		assertEquals("java",c.getNombre());
+		assertEquals("libros de java",c.getDescripcion());
+		
 	}
 	
 	@Test

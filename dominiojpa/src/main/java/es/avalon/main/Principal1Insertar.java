@@ -14,7 +14,7 @@ public class Principal1Insertar {
 
 		EntityManagerFactory factoria=Persistence.createEntityManagerFactory("UnidadBiblioteca");
 		EntityManager em=factoria.createEntityManager();
-		Libro libro=new Libro("120","java","yo",20,"programacion");
+		Libro libro=new Libro("120","java","yo",20);
 		EntityTransaction t=em.getTransaction();
 		t.begin();
 		em.persist(libro);
