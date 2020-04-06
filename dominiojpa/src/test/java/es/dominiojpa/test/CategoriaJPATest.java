@@ -2,6 +2,7 @@ package es.dominiojpa.test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasItems;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -20,6 +21,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import es.avalon.dominiojpa.Categoria;
+import es.avalon.dominiojpa.Libro;
 
 public class CategoriaJPATest {
 
@@ -49,7 +51,7 @@ public class CategoriaJPATest {
 	}
 	
 	@Test
-	public void test_insertar_cstegoria_net() {
+	public void test_insertar_categoria_net() {
 		
 		Categoria categoria=new Categoria("net","libros de .net");
 		em.persist(categoria);
@@ -64,23 +66,26 @@ public class CategoriaJPATest {
 	@Test
 	public void test_Borrar_Libro_Por_Categoria_java() {
 		
-		//Busca la entidad
 		Categoria categoria=em.find(Categoria.class,"java");
-		//hace un assert y comprueba que existe
-		assertNotNull(categoria);
-		//Esta genera una transaccion
-		EntityTransaction t=em.getTransaction();
-		//Ejecuta una transaccion
-		t.begin();
 		
-		//Elimina el libro
 		em.remove(categoria);
-		//Intenta encontrar el libro
 		Categoria categoria2=em.find(Categoria.class, "1AB");
-		//Comprueba que ya no existe
 		assertNull(categoria2);
-		//echa la transaccion para atras de tal manera que los datos quedaen como estaban en la base de datos
-		t.rollback();
+
+	}
+	
+	@Test
+	public void test_buscar_categoria_con_libros() {
+		
+//		TypedQuery<Categoria> consulta=em.createQuery("select c from Categoria c where c.nombre=:nombre",Categoria.class);
+//		consulta.setParameter("nombre", "java");
+//		Categoria categoria=consulta.getSingleResult();
+//		assertThat(categoria.getLibros().size(),greaterThanOrEqualTo(3));
+		
+		Categoria c=em.find(Categoria.class, "java");
+		assertThat(c.getLibros().size(),greaterThanOrEqualTo(3));
+
+
 	}
 	
 	

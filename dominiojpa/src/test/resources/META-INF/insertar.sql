@@ -1,4 +1,4 @@
-INSERT INTO `Categoria` (`nombre`, `descripcion`) VALUES ('Java', 'libros de java')
+INSERT INTO `Categoria` (`nombre`, `descripcion`) VALUES ('java', 'libros de java')
 INSERT INTO `Categoria` (`nombre`, `descripcion`) VALUES ('web', 'libros web')
 INSERT INTO `Categoria` (`nombre`, `descripcion`) VALUES ('programacion', 'programacion')
 INSERT INTO `Libros` (`isbn`, `titulo`, `autor`, `precio`, `categoria`) VALUES ('1AB', 'Java', 'cecilio', 10, 'java')
