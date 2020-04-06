@@ -83,9 +83,16 @@ public class CategoriaJPATest {
 		Categoria nueva= em.find(Categoria.class,"java");
 		assertNull(nueva);
 		
+	}
+	@Test
+	public void test_buscar_libros_categoria() {
 		
+		
+		Categoria c= em.find(Categoria.class,"java");
+		
+		Categoria nueva= em.find(Categoria.class,"java");
 		
 		
 	}
-
+	
 }
