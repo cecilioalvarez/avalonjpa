@@ -13,7 +13,7 @@ public class Principal {
 		EntityManagerFactory factoria = Persistence.createEntityManagerFactory("UnidadBiblioteca");
 		EntityManager em = factoria.createEntityManager();
 		
-		Libro libro= new Libro("120", "Java", "yo", 20, "programacion");
+		Libro libro= new Libro("120", "Java", "yo", 20);
 		
 		EntityTransaction t=em.getTransaction();
 		

@@ -1,2 +1,2 @@
-DROP TABLE if exists Categoria
 DROP TABLE if exists Libros
+DROP TABLE if exists Categoria

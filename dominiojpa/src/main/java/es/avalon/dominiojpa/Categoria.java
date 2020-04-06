@@ -1,16 +1,23 @@
 package es.avalon.dominiojpa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
 @Entity
-@Table(name="categoria")
 public class Categoria {
-	
 	@Id
 	private String nombre;
 	private String descripcion;
+	
+	
+	//esto genera la relacion inversa
+	@OneToMany(mappedBy = "categoria")
+	private List<Libro> libros= new ArrayList<Libro>();
+	
 	
 	public String getNombre() {
 		return nombre;
@@ -28,6 +35,14 @@ public class Categoria {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+	}
+	
+	public Categoria(String nombre) {
+		super();
+		this.nombre = nombre;
+	}
+	public Categoria() {
+		super();
 	}
 	@Override
 	public int hashCode() {
@@ -52,13 +67,12 @@ public class Categoria {
 			return false;
 		return true;
 	}
-	public Categoria(String nombre) {
-		super();
-		this.nombre = nombre;
+	public List<Libro> getLibros() {
+		return libros;
 	}
-	public Categoria() {
-		super();
+	public void setLibros(List<Libro> libros) {
+		this.libros = libros;
 	}
 	
-
+	
 }
