@@ -87,6 +87,8 @@ public class LibroJPATest2 {
 
 		assertThat(lista.size(),greaterThanOrEqualTo(2));
 	}
+	
+	@Test
 	public void test_Borrar_Libro_Por_ISBN_1AB() {
 		Libro libro= em.find(Libro.class, "1AB");
 		assertNotNull(libro);
