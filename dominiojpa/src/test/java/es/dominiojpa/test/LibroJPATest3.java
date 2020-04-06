@@ -77,11 +77,17 @@ public class LibroJPATest3 {
 		Categoria nueva = em.find(Categoria.class, "java");
 		assertNull(nueva);
 
+	}
+	
+	@Test
+	public void testBuscarCategoriaConLibros() {
 		
+		Categoria categoriaJava = em.find(Categoria.class, "java");
 		
-		//t.rollback();
+		List<Libro> librosJava = categoriaJava.getLibros();
 		
-		
+		assertThat(librosJava.size(), greaterThanOrEqualTo(2));
+
 	}
 
 

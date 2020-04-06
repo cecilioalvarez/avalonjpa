@@ -18,20 +18,20 @@ public class LibrosTest {
 	@Test
 	public void testElLibroNoesNulo() {
 		
-		Libro libro = new Libro("10", "java", "pedro", 20, "Programacion");
+		Libro libro = new Libro("10", "java", "pedro", 20);
 		assertNotNull(libro);
 	}
 	
 	@Test
 	public void testElLibroTieneInformacionCorrecta() {
 		
-		Libro libro = new Libro("10", "java", "pedro", 20, "Programacion");
+		Libro libro = new Libro("10", "java", "pedro", 20);
 		
 		assertEquals("10", libro.getIsbn());
 		assertEquals("java", libro.getTitulo());
 		assertEquals("pedro", libro.getAutor());
 		assertEquals(20, libro.getPrecio());
-		assertEquals("Programacion", libro.getCategoria());
+		
 	}
 
 }

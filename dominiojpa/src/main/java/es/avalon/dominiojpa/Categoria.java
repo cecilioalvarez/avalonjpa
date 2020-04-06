@@ -1,7 +1,11 @@
 package es.avalon.dominiojpa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -11,6 +15,9 @@ public class Categoria {
 	@Id
 	private String nombre;
 	private String descripcion;
+	@OneToMany(mappedBy="categoria")
+	private List<Libro> libros = new ArrayList<Libro>();
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -36,6 +43,14 @@ public class Categoria {
 	public Categoria() {
 		super();
 	}
+	
+	public List<Libro> getLibros() {
+		return libros;
+	}
+	public void setLibros(List<Libro> libros) {
+		this.libros = libros;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

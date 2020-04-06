@@ -22,7 +22,7 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-
+import es.avalon.dominiojpa.Categoria;
 import es.avalon.dominiojpa.Libro;
 
 public class LibroJPATest2 {
@@ -86,7 +86,7 @@ public class LibroJPATest2 {
 	}
 	
 	@Test
-	public void testBuscarLibroPorISBN1AB() {
+	public void testBuscarLibroPorISBN1ABConCategoriaJava() {
 			
 		Libro libro = em.find(Libro.class, "1AB");
 		
@@ -94,7 +94,11 @@ public class LibroJPATest2 {
 		assertEquals("Java", libro.getTitulo());
 		assertEquals("cecilio", libro.getAutor());
 		assertEquals(10, libro.getPrecio());
-		assertEquals("java", libro.getCategoria());
+		
+		Categoria c = libro.getCategoria();
+		assertEquals("java", c.getNombre());
+		assertEquals("libros de java", c.getDescripcion());
+		
 		
 	}
 	
@@ -108,6 +112,20 @@ public class LibroJPATest2 {
 		List<Libro> lista = consulta.getResultList();
 		
 		assertEquals(2, lista.size());
+	}
+	
+	@Test
+	public void testBuscarLibroPorTituloAutor() {
+		
+		TypedQuery<Libro> consulta = em.createQuery("select l from Libro l where l.autor=:autor and l.titulo=:titulo", Libro.class);
+		consulta.setParameter("autor", "cecilio");
+		consulta.setParameter("titulo", "java");
+		
+		//Me devuelve la lista de libros
+		List<Libro> lista = consulta.getResultList();
+		
+		assertThat(lista.size(), greaterThanOrEqualTo(1));
+		assertThat(lista, hasItem(new Libro("1AB")));
 	}
 	
 	
@@ -140,24 +158,28 @@ public class LibroJPATest2 {
 	}
 	
 	@Test
-	public void testBuscarLibroPorCategoriaWeb() {
+	public void testBuscarLibroPorCategoriaJava() {
 		
-		TypedQuery<Libro> consulta = em.createQuery("select l from Libro l where l.categoria=:categoria", Libro.class);
-		consulta.setParameter("categoria", "web");
+		TypedQuery<Libro> consulta = em.createQuery("select l from Libro l where l.categoria.nombre=:nombre", Libro.class);
+		consulta.setParameter("nombre", "java");
 		
 		//Me devuelve la lista de libros
 		List<Libro> lista = consulta.getResultList();
 		
-		assertEquals(2, lista.size());
+		assertThat(lista.size(), greaterThanOrEqualTo(1));
+		assertThat(lista, hasItems(new Libro("1AB"), new Libro("2AC")));
 	}
+	
+	
+	
+
+	
 	
 	@After
 	public void close() {
 		//emf.close();
 		em.close();
-		//emf = null;
-		em = null;
-		
+
 	}
 	
 
