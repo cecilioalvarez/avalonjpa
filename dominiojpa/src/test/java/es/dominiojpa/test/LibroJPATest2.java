@@ -134,7 +134,7 @@ public class LibroJPATest2 {
 	@Test
 	public void test__Buscar_Libro_por_Titulo_y_Autor() {
 		
-		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l where l.autor=:autor and l.titulo:titulo",Libro.class);
+		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l where l.autor=:autor and l.titulo=:titulo",Libro.class);
 		consulta.setParameter("autor", "cecilio");
 		consulta.setParameter("titulo", "Java");
 		
