@@ -1,6 +1,12 @@
 package es.dominiojpa.test;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -16,9 +22,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import es.avalon.dominiojpa.Libro;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 
 public class LibroJPATest2 {
 
@@ -72,6 +75,18 @@ public class LibroJPATest2 {
 		
 		List<Libro> lista=consulta.getResultList();
 		assertThat(lista.size(),greaterThanOrEqualTo(2));
+	}
+	
+	@Test
+	public void test_buscar_libro_por_titulo_y_autor() {
+
+		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l where l.autor=:autor and l.titulo=:titulo",Libro.class);
+		consulta.setParameter("autor", "cecilio");
+		consulta.setParameter("titulo", "Java");
+		
+		List<Libro> lista=consulta.getResultList();
+		assertThat(lista.size(),greaterThanOrEqualTo(1));                   
+		assertThat(lista.size(),hasItem(new Libro("1AB")));
 	}
 	
 	@Test
