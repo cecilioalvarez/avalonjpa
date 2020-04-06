@@ -87,5 +87,17 @@ public class CategoriaJPATest {
 		
 		
 	}
+	
+	@Test
+	public void test_buscar_libros_de_categoria() {
+		
+		
+		Categoria c=em.find(Categoria.class, "java");
+		
+		assertThat(c.getLibros().size(), greaterThanOrEqualTo(2));
+		
+		
+		
+	}
 
 }
