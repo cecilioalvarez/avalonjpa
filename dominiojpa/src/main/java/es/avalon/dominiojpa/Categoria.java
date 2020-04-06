@@ -1,7 +1,11 @@
 package es.avalon.dominiojpa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,6 +16,9 @@ public class Categoria {
 		private String nombre;
 		private String descripcion;
 
+		// esto genera la relacion inversa
+		@OneToMany(mappedBy="cateogira")
+		private List<Libro> libros=new ArrayList<Libro>();
 
 		public String getNombre() {
 			return nombre;

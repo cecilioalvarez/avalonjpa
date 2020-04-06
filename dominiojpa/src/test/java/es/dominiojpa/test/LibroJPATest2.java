@@ -21,6 +21,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import es.avalon.dominiojpa.Categoria;
 import es.avalon.dominiojpa.Libro;
 
 public class LibroJPATest2 {
@@ -83,9 +84,40 @@ public class LibroJPATest2 {
 		assertEquals("Java", libro.getTitulo());
 		assertEquals("cecilio", libro.getAutor());
 		assertEquals(10, libro.getPrecio());
-		assertEquals("java", libro.getCategoria());
+		//assertEquals("java", libro.getCategoria());
 
 	}
+	
+	@Test
+	public void test_Buscar_Libro_por_Isbn_1AB_con_Categoria_Java() {
+		
+		Libro libro = em.find(Libro.class, "1AB");
+		
+		assertEquals("1AB", libro.getIsbn());
+		assertEquals("Java", libro.getTitulo());
+		assertEquals("cecilio", libro.getAutor());
+		assertEquals(10, libro.getPrecio());;
+		
+		Categoria c=libro.getCategoria();
+		assertEquals("java",c.getNombre());
+		assertEquals("libros de java", c.getDescripcion());
+	}
+	
+	/*
+	@Test
+	public void test_Buscar_Libro_por_Categoria() {
+		
+		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l where l.categoria.nombre=:nombre",Libro.class);
+		consulta.setParameter("nombre", "java");
+		List<Libro> lista=consulta.getResultList();
+		
+		assertThat(lista.size(),greaterThanOrEqualTo(2));
+		assertThat(lista,hasItems(new Libro("1AB"), new Libro("2AC")));
+
+	}
+		
+	 */
+	
 	@Test
 	public void test_Borrar_Libro_por_Isbn() {
 		
@@ -119,6 +151,7 @@ public class LibroJPATest2 {
 		
 	}
 	
+	/*
 	@Test
 	public void test__Buscar_Libro_por_Categoria_web() {
 				
@@ -130,6 +163,7 @@ public class LibroJPATest2 {
 		assertEquals(2,lista.size());
 		
 	}
+	 */
 	
 	@Test
 	public void test__Buscar_Libro_por_Titulo_y_Autor() {
@@ -140,7 +174,7 @@ public class LibroJPATest2 {
 		
 		List<Libro> lista=consulta.getResultList();
 		
-		assertEquals(lista.size(),greaterThanOrEqualTo(1));
+		assertThat(lista.size(),greaterThanOrEqualTo(1));
 		assertThat(lista,hasItem(new Libro("1AB")));
 		
 	}

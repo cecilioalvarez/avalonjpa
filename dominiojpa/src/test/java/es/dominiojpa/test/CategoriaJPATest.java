@@ -18,6 +18,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import es.avalon.dominiojpa.Categoria;
+import es.avalon.dominiojpa.Libro;
 
 public class CategoriaJPATest {
 
@@ -61,6 +62,16 @@ public class CategoriaJPATest {
 		Categoria cat2=em.find(Categoria.class, "net");
 		assertNotNull(cat2);
 		
+	}
+	
+	@Test
+	public void test_Buscar_Categoria_con_sus_Libros() {
+		
+		TypedQuery<Categoria> consulta=em.createQuery("select c from Categoria c where c.nombre=:nombre",Categoria.class);
+		consulta.setParameter("nombre", "java");
+		List<Categoria> lista=consulta.getResultList();
+		
+		assertThat(lista.size(),greaterThanOrEqualTo(2));
 	}
 	
 	@After
