@@ -24,11 +24,11 @@ public class LibroJPATest {
 		emf=Persistence.createEntityManagerFactory("UnidadBiblioteca");
 		em=emf.createEntityManager();
 		Libro libro=em.find(Libro.class, "1");
-		assertEquals("1",libro.getIsbn());
-		assertEquals("java",libro.getTitulo());
-		assertEquals("juan",libro.getAutor());
-		assertEquals(20,libro.getPrecio());
-		assertEquals("web",libro.getCategoria());	
+		assertEquals("1AB",libro.getIsbn());
+		assertEquals("Java",libro.getTitulo());
+		assertEquals("cecilio",libro.getAutor());
+		assertEquals(10,libro.getPrecio());
+		assertEquals("java",libro.getCategoria());	
 		
 	}
 	@Test
