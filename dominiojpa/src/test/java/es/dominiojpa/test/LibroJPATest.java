@@ -1,5 +1,7 @@
 package es.dominiojpa.test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -25,12 +27,12 @@ public class LibroJPATest {
 		
 		emf=Persistence.createEntityManagerFactory("UnidadBiblioteca");
 		em= emf.createEntityManager();
-		Libro libro=em.find(Libro.class, "1");
-		assertEquals("1",libro.getIsbn());
+		Libro libro=em.find(Libro.class, "1AB");
+		assertEquals("1AB",libro.getIsbn());
 		assertEquals("Java",libro.getTitulo());
-		assertEquals("juan",libro.getAutor());
-		assertEquals(20,libro.getPrecio());
-		assertEquals("web",libro.getCategoria());
+		assertEquals("cecilio",libro.getAutor());
+		assertEquals(10,libro.getPrecio());
+		//assertEquals("java",libro.getCategoria());
 		
 		
 		
@@ -46,7 +48,7 @@ public class LibroJPATest {
 		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l",Libro.class);
 		
 		List<Libro> lista= consulta.getResultList();
-		assertEquals(2,lista.size());
+		assertThat(lista.size(),greaterThanOrEqualTo(4));
 		
 		
 	}
