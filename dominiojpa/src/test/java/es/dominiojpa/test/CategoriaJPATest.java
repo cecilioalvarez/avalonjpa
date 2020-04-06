@@ -19,6 +19,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import es.avalon.dominiojpa.Categoria;
+import es.avalon.dominiojpa.Libro;
 
 public class CategoriaJPATest {
 
@@ -82,10 +83,17 @@ public class CategoriaJPATest {
 		em.remove(c);
 		Categoria nueva= em.find(Categoria.class,"java");
 		assertNull(nueva);
-		
-		
-		
-		
+			
 	}
+	
+	@Test
+	public void test_buscar_libros_de_categoria() {
+		
+		
+		Categoria c= em.find(Categoria.class,"java");
+		assertThat(c.getLibros().size(),greaterThanOrEqualTo(2));
+	}
+	
+	
 
 }
