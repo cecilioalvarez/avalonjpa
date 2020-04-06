@@ -86,7 +86,7 @@ public class LibroJPATest2 {
 		
 		List<Libro> lista=consulta.getResultList();
 		assertThat(lista.size(),greaterThanOrEqualTo(1));                   
-		assertThat(lista.size(),hasItem(new Libro("1AB")));
+		assertThat(lista,hasItem(new Libro("1AB")));
 	}
 	
 	@Test
