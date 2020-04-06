@@ -1,7 +1,10 @@
 package es.avalon.dominiojpa;
 
+import es.avalon.dominiojpa.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,7 +16,9 @@ import javax.persistence.Table;
 		 private String titulo;
 		 private String autor;
 		 private int precio;
-		 private String categoria;
+		 @ManyToOne
+		 @JoinColumn(name="categoria")
+		 private Categoria categoria;
 		 
 		 
 		 public String getIsbn() {
@@ -47,12 +52,19 @@ import javax.persistence.Table;
 		public void setPrecio(int precio) {
 			this.precio = precio;
 		}
-		public String getCategoria() {
+		public Categoria getCategoria() {
 			return categoria;
 		}
-		public void setCategoria(String categoria) {
-			this.categoria = categoria;
+		public void seCategoria (Categoria categoria) {
+			this.categoria=categoria;
 		}
+		
+//		public String getCategoria() {
+//			return categoria;
+//		}
+//		public void setCategoria(String categoria) {
+//			this.categoria = categoria;
+//		}
 		 
 		public Libro(String isbn, String titulo, String autor, int precio, String categoria) {
 			super();

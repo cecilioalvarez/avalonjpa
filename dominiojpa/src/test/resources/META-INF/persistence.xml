@@ -40,6 +40,7 @@
 			<property
 				name="javax.persistence.schema-generation.drop-script-source"
 				value="META-INF/borrar.sql" />
+			
 			<property name="javax.persistence.sql-load-script-source"
 				value="META-INF/insertar.sql" />
 
