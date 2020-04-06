@@ -1,71 +1,93 @@
 package es.dominiojpa.test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasItems;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import es.avalon.dominiojpa.Libro;
 
 public class LibroJPATest2 {
 
-	EntityManagerFactory emf;
+	static EntityManagerFactory emf;
 	EntityManager em; 
 	
+	@BeforeClass
+	public static void setUpClass() {
+				
+		Persistence.generateSchema("UnidadBiblioteca", null);
+		emf=Persistence.createEntityManagerFactory("UnidadBiblioteca");
+		// es general para toda la aplicacion
+	}
+	@Before
+	public void setUp() {
+		// entity manager existe por cada operacion
+		//que hacemos con un grupo de entidades
+
+		em= emf.createEntityManager();	
+	}
 	
 	@Test
-	public void testInicialLibros() {
+	public void test_Lista_Todos_Los_Libros() {
 		
-		Persistence.generateSchema("UnidadBiblioteca", null);
 		
-		emf=Persistence.createEntityManagerFactory("UnidadBiblioteca");
-		em= emf.createEntityManager();
-		//consulta JPA Query Language
 		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l",Libro.class);
 		
 		List<Libro> lista= consulta.getResultList();
-		assertEquals(4,lista.size());
+		
+		assertThat(lista.size(),greaterThanOrEqualTo(4));
+		
 		
 		
 	}
 	
 	@Test
-	public void test_Existe_Libro_Titulo_Java() {
+	public void test_Existe_Libro_ISBN_1AB() {
 		
-		Persistence.generateSchema("UnidadBiblioteca", null);
-		
-		emf=Persistence.createEntityManagerFactory("UnidadBiblioteca");
-		em= emf.createEntityManager();
-		//consulta JPA Query Language
-		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l",Libro.class);
-		
-		// me devuelve la lista de libros
+		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l",Libro.class);	
 		List<Libro> lista= consulta.getResultList();
-		// genero en memoria el libro 1AB
-		// como tenemos sobrecargado el equals y el hashcode
-		// instancio el libro y comprueba 
-		// que en la lista viene con el metodo contains
 		Libro libro= new Libro("1AB");
-		assertTrue(lista.contains(libro));
+		
+		assertThat(lista,hasItems(libro));
 		
 		
 		
 	}
 	
 	@Test
-	public void test_buscar_libro_por_isbn() {
+	public void test_buscar_Libro_Por_Autor_Cecilio() {
+			
+		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l where l.autor=:autor",Libro.class);
+		consulta.setParameter("autor", "cecilio");
+		List<Libro> lista= consulta.getResultList();
 		
-		Persistence.generateSchema("UnidadBiblioteca", null);
 		
-		emf=Persistence.createEntityManagerFactory("UnidadBiblioteca");
-		em= emf.createEntityManager();
+		assertThat(lista.size(),greaterThanOrEqualTo(2));
+		
+		
+		
+	}
+	
+	
+	@Test
+	public void test_Buscar_Con_Find_Libro_Por_Isbn_1AB() {
+		
+		
 		Libro libro= em.find(Libro.class, "1AB");
 		
 		assertEquals("1AB",libro.getIsbn());
@@ -76,6 +98,45 @@ public class LibroJPATest2 {
 		
 		
 	}
+	
+	@Test
+	public void test_Borrar_Libro_PorISBN_1AB() {
+		
+		
+		// busca la entidad
+		Libro libro= em.find(Libro.class, "1AB");
+		//otra linea hace un assert y comprueba que existe
+		assertNotNull(libro);
+		//esta genera una transacion
+		EntityTransaction t=em.getTransaction();
+		//ejecuta una transaccion
+		t.begin();
+		//elimina el libro
+		em.remove(libro);
+		// esta intenta encontrarle
+		Libro libro2=em.find(Libro.class, "1AB");
+		//comprueba que ya no existe
+		
+		assertNull(libro2);
+		//echa la transaccion para atras de tal forma
+		//que los datos queden como estaban en la base de datos 
+		t.rollback();
+		
+		
+	}
+	
+	
+	
+	@After
+	public void close() {
+		
+		//emf.close();
+		em.close();
+		//emf=null;
+		em= null;
+		
+	}
+	
 	
 
 }
