@@ -1,6 +1,8 @@
 package es.avalon.dominio.test;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -16,29 +18,39 @@ import es.avalon.dominio.Libro;
 public class LibroJPATest {
 
 	EntityManagerFactory emf;
-	EntityManager em;
-
+	EntityManager em; 
+	
+	
+	
 	@Test
 	public void testLibroExiste() {
-		emf = Persistence.createEntityManagerFactory("UnidadBiblioteca");
-		em = emf.createEntityManager();
-		Libro libro = em.find(Libro.class, "1");
-
-		assertEquals("1", libro.getIsbn());
-		assertEquals("java", libro.getTitulo());
-		assertEquals("ana", libro.getAutor());
-		assertEquals(10, libro.getPrecio());
-		assertEquals("programacion", libro.getCategoria());
+		
+		emf=Persistence.createEntityManagerFactory("UnidadBiblioteca");
+		em= emf.createEntityManager();
+		Libro libro=em.find(Libro.class, "1AB");
+		assertEquals("1AB",libro.getIsbn());
+		assertEquals("Java",libro.getTitulo());
+		assertEquals("cecilio",libro.getAutor());
+		assertEquals(10,libro.getPrecio());
+		//assertEquals("java",libro.getCategoria());
+		
+		
+		
 	}
-
+	
+	
 	@Test
 	public void testListaLibros() {
-		emf = Persistence.createEntityManagerFactory("UnidadBiblioteca");
-		em = emf.createEntityManager();
-		TypedQuery<Libro> consulta = em.createQuery("select l from Libro l", Libro.class);
-
-		List<Libro> lista = consulta.getResultList();
-
-		assertEquals(5, lista.size());
+		
+		emf=Persistence.createEntityManagerFactory("UnidadBiblioteca");
+		em= emf.createEntityManager();
+		//consulta JPA Query Language
+		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l",Libro.class);
+		
+		List<Libro> lista= consulta.getResultList();
+		assertThat(lista.size(),greaterThanOrEqualTo(4));
+		
+		
 	}
+	
 }
