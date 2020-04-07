@@ -1,4 +1,4 @@
-package es.dominiojpa.test;
+package es.avalon.dominio.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -19,11 +19,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import es.avalon.dominio.Categoria;
+import es.avalon.dominio.Libro;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-
-import es.avalon.dominiojpa.Categoria;
-import es.avalon.dominiojpa.Libro;
 
 public class LibroJPATest2 {
 	
