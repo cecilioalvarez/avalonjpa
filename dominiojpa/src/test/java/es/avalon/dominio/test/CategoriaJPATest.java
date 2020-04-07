@@ -63,16 +63,16 @@ public class CategoriaJPATest {
 		assertNotNull(cat2);
 		
 	}
-	
 	@Test
 	public void test_Buscar_Categoria_con_sus_Libros() {
 		
 		TypedQuery<Categoria> consulta=em.createQuery("select c from Categoria c where c.nombre=:nombre",Categoria.class);
 		consulta.setParameter("nombre", "java");
-		List<Categoria> lista=consulta.getResultList();
+		Categoria cat=consulta.getSingleResult();
 		
-		assertThat(lista.size(),greaterThanOrEqualTo(1));
+		assertThat(cat.getLibros().size(),greaterThanOrEqualTo(2));
 	}
+	
 	
 	@After
 	public void close() {

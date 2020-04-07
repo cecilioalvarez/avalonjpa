@@ -20,6 +20,14 @@ public class Categoria {
 		@OneToMany(mappedBy="categoria")
 		private List<Libro> libros=new ArrayList<Libro>();
 
+		public List<Libro> getLibros() {
+			return libros;
+		}
+
+		public void setLibros(List<Libro> libros) {
+			this.libros = libros;
+		}
+
 		public String getNombre() {
 			return nombre;
 		}
