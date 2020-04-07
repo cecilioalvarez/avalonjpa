@@ -1,4 +1,4 @@
-package es.avalon.dominiojpa;
+package es.avalon.dominio;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package es.avalon.dominiojpa.test;
+package es.avalon.dominio.test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -18,7 +18,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import es.avalon.dominiojpa.Categoria;
+import es.avalon.dominio.Categoria;
 
 public class CategoriaJPATest {
 
