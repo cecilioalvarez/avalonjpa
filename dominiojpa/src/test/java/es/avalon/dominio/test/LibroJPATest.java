@@ -34,8 +34,6 @@ public class LibroJPATest {
 		assertEquals(10,libro.getPrecio());
 		//assertEquals("java",libro.getCategoria());
 		
-		
-		
 	}
 	
 	
