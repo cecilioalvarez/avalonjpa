@@ -103,7 +103,6 @@ public class LibroJPATest2 {
 		assertEquals("libros de java", c.getDescripcion());
 	}
 	
-	/*
 	@Test
 	public void test_Buscar_Libro_por_Categoria() {
 		
@@ -113,10 +112,9 @@ public class LibroJPATest2 {
 		
 		assertThat(lista.size(),greaterThanOrEqualTo(2));
 		assertThat(lista,hasItems(new Libro("1AB"), new Libro("2AC")));
+		
 
 	}
-		
-	 */
 	
 	@Test
 	public void test_Borrar_Libro_por_Isbn() {

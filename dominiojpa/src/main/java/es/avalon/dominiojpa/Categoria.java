@@ -17,8 +17,16 @@ public class Categoria {
 		private String descripcion;
 
 		// esto genera la relacion inversa
-		@OneToMany(mappedBy="cateogira")
+		@OneToMany(mappedBy="categoria")
 		private List<Libro> libros=new ArrayList<Libro>();
+
+		public List<Libro> getLibros() {
+			return libros;
+		}
+
+		public void setLibros(List<Libro> libros) {
+			this.libros = libros;
+		}
 
 		public String getNombre() {
 			return nombre;

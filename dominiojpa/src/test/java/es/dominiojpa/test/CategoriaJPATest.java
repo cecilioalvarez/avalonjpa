@@ -69,10 +69,21 @@ public class CategoriaJPATest {
 		
 		TypedQuery<Categoria> consulta=em.createQuery("select c from Categoria c where c.nombre=:nombre",Categoria.class);
 		consulta.setParameter("nombre", "java");
-		List<Categoria> lista=consulta.getResultList();
+		Categoria cat=consulta.getSingleResult();
 		
-		assertThat(lista.size(),greaterThanOrEqualTo(2));
+		assertThat(cat.getLibros().size(),greaterThanOrEqualTo(2));
 	}
+	
+	
+	@Test
+	public void test_Buscar_Libros_de_Categoria() {
+		
+		Categoria cat=em.find(Categoria.class, "java");
+		
+		assertThat(cat.getLibros().size(),greaterThanOrEqualTo(2));
+	}
+	
+
 	
 	@After
 	public void close() {
