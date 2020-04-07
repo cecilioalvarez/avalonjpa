@@ -4,8 +4,8 @@
  http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
 	<persistence-unit name="UnidadBiblioteca">
-		<class>es.avalon.dominiojpa.Libro</class>
-		<class>es.avalon.dominiojpa.Categoria</class>
+		<class>es.avalon.dominio.Libro</class>
+		<class>es.avalon.dominio.Categoria</class>
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
 
