@@ -14,6 +14,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -94,6 +96,19 @@ public class CategoriaJPATest {
 		assertThat(c.getLibros().size(),greaterThanOrEqualTo(2));
 	}
 	
-	
+	@AfterClass
+	public static void closeClass() {
+				
+		emf.close();
+		emf=null;
+		
+	}
+	@After
+	public void close() {
+		
+
+		em.close();
+		em=null;
+	}
 
 }

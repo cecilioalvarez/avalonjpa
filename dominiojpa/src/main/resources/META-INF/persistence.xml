@@ -5,6 +5,7 @@
  version="2.0">
  <persistence-unit name="UnidadBiblioteca">
  <class>es.avalon.dominio.Libro</class>
+ <class>es.avalon.dominio.Categoria</class>
  <properties>
  <property name= "hibernate.show_sql" value="true" />
  
