@@ -1,4 +1,4 @@
-package es.dominiojpa.test;
+package es.avalon.dominio.test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -13,7 +13,7 @@ import javax.persistence.TypedQuery;
 
 import org.junit.Test;
 
-import es.avalon.dominiojpa.Libro;
+import es.avalon.dominio.Libro;
 
 public class LibroJPATest {
 
