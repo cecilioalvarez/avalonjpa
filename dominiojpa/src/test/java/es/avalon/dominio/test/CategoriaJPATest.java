@@ -1,4 +1,4 @@
-package es.dominiojpa.test;
+package es.avalon.dominio.test;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import es.avalon.dominio.Categoria;
+import es.avalon.dominio.Libro;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-
-import es.avalon.dominiojpa.Categoria;
-import es.avalon.dominiojpa.Libro;
 
 public class CategoriaJPATest {
 
