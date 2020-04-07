@@ -1,10 +1,11 @@
-package es.dominiojpa.test;
+package es.avalon.dominio.test;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Test;
 
-import es.avalon.dominiojpa.Libro;
+import es.avalon.dominio.Libro;
 
 public class LibrosTest {
 
@@ -17,17 +18,18 @@ public class LibrosTest {
 	@Test
 	public void testElLibroNoesNulo() {
 		
-		Libro libro=new Libro("10","java","pedro",20,"programacion");
+		Libro libro=new Libro("10","java","pedro",20);
 		assertNotNull(libro);
 	}
 	@Test
 	public void testElLibroTieneInformacionCorrecta() {
 		
-		Libro libro=new Libro("10","java","pedro",20,"programacion");
+		Libro libro=new Libro("10","java","pedro",20);
 		assertEquals("10",libro.getIsbn());
 		assertEquals("java",libro.getTitulo());
 		assertEquals("pedro",libro.getAutor());
 		assertEquals(20,libro.getPrecio());
-		assertEquals("programacion",libro.getCategoria());
+		assertEquals(null,libro.getCategoria());
 	}
+
 }

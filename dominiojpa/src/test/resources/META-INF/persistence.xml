@@ -4,7 +4,8 @@
  http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
 	<persistence-unit name="UnidadBiblioteca">
-		<class>es.avalon.dominiojpa.Libro</class>
+ <class>es.avalon.dominio.Libro</class>
+  <class>es.avalon.dominio.Categoria</class>
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
 
@@ -33,13 +34,14 @@
 				name="javax.persistence.schema-generation.create-source"
 				value="script" />
 
-
-			<property
-				name="javax.persistence.schema-generation.create-script-source"
-				value="META-INF/crear.sql" />
 			<property
 				name="javax.persistence.schema-generation.drop-script-source"
 				value="META-INF/borrar.sql" />
+				
+			<property
+				name="javax.persistence.schema-generation.create-script-source"
+				value="META-INF/crear.sql" />
+
 			<property name="javax.persistence.sql-load-script-source"
 				value="META-INF/insertar.sql" />
 

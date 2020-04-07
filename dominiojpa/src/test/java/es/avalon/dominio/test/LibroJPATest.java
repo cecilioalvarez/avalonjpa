@@ -1,4 +1,4 @@
-package es.dominiojpa.test;
+package es.avalon.dominio.test;
 
 import static org.junit.Assert.*;
 
@@ -9,13 +9,17 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Test;
 
-import es.avalon.dominiojpa.Libro;
+import es.avalon.dominio.Libro;
 
 public class LibroJPATest {
 
-	EntityManagerFactory emf;
+	
+	
+	static EntityManagerFactory emf;
 	EntityManager em;
 	
 	@Test
@@ -23,13 +27,13 @@ public class LibroJPATest {
 		emf=Persistence.createEntityManagerFactory("UnidadBiblioteca");
 	
 		em=emf.createEntityManager();
-		Libro libro=em.find(Libro.class, "2");
+		Libro libro=em.find(Libro.class, "2AC");
 		
-		assertEquals("2",libro.getIsbn());
-		assertEquals("net",libro.getTitulo());
+		assertEquals("2AC",libro.getIsbn());
+		assertEquals("Java Web",libro.getTitulo());
 		assertEquals("cecilio",libro.getAutor());
-		assertEquals(20,libro.getPrecio());
-		assertEquals("programacion",libro.getCategoria());
+		assertEquals(15,libro.getPrecio());
+		//assertEquals("programacion",libro.getCategoria());
 	}
 	@Test
 	public void testListaLibros() {
@@ -39,9 +43,22 @@ public class LibroJPATest {
 		TypedQuery<Libro> consulta=em.createQuery("select l from Libro l",Libro.class);
 		
 		List<Libro> lista=consulta.getResultList();
-		assertEquals(2,lista.size());
+		assertTrue(lista.size()>2);
 	
 	}
+	@After
+	public void close() {
+		
+		em.close();
+		
+		em = null;
+	}
+	@AfterClass
+	public static void closemf() {
+		 emf.close();
 
+		 emf=null;
+	
+	}
 
 }
