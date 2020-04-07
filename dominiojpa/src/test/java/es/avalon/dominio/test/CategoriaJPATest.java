@@ -71,7 +71,7 @@ public class CategoriaJPATest {
 		consulta.setParameter("nombre", "java");
 		List<Categoria> lista=consulta.getResultList();
 		
-		assertThat(lista.size(),greaterThanOrEqualTo(2));
+		assertThat(lista.size(),greaterThanOrEqualTo(1));
 	}
 	
 	@After
@@ -81,5 +81,7 @@ public class CategoriaJPATest {
 		em.close();
 		//emf=null;
 		em=null;
+		emf.close();
+		emf=null;
 	}
 }
