@@ -1,5 +1,7 @@
 package es.avalon.dominio;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -8,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Libros")
-public class Libro {
+public class Libro implements Serializable {
 	
 	@Id
 	private String isbn;
